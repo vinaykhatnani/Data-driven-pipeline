@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     aws = {
-      source = "hashicorp/aws"
+      source  = "hashicorp/aws"
       version = "5.67.0"
     }
   }
@@ -9,8 +9,8 @@ terraform {
 
 
 provider "aws" {
-  region     = "ap-south-1"
-  
+  region = "ap-south-1"
+
 }
 
 
@@ -44,9 +44,7 @@ resource "aws_s3_object" "processed_folder" {
   acl    = "private"
 }
 
-provider "aws" {
-  region = "us-east-1"
-}
+
 
 # Athena Workgroup
 resource "aws_athena_workgroup" "default" {
@@ -69,10 +67,10 @@ resource "aws_athena_database" "bellybrew_db" {
 
 # Athena named query to select the database
 resource "aws_athena_named_query" "select_db" {
-  name      = "SelectDatabase"
-  database  = aws_athena_database.bellybrew_db.name
-  query     = "USE bellybrewanalysis_db;"
-  workgroup = aws_athena_workgroup.default.name
+  name        = "SelectDatabase"
+  database    = aws_athena_database.bellybrew_db.name
+  query       = "USE bellybrewanalysis_db;"
+  workgroup   = aws_athena_workgroup.default.name
   description = "Query to select the Athena database"
 }
 
@@ -103,13 +101,13 @@ resource "aws_iam_policy" "belly_brew_policy" {
     Version = "2012-10-17",
     Statement = [
       {
-        Effect = "Allow",
-        Action = "s3:*",
+        Effect   = "Allow",
+        Action   = "s3:*",
         Resource = "*"
       },
       {
-        Effect = "Allow",
-        Action = "athena:*",
+        Effect   = "Allow",
+        Action   = "athena:*",
         Resource = "*"
       },
       {
@@ -122,13 +120,13 @@ resource "aws_iam_policy" "belly_brew_policy" {
         Resource = "*"
       },
       {
-        Effect = "Allow",
-        Action = "apigateway:*",
+        Effect   = "Allow",
+        Action   = "apigateway:*",
         Resource = "*"
       },
       {
-        Effect = "Allow",
-        Action = "*",
+        Effect   = "Allow",
+        Action   = "*",
         Resource = "*"
       }
     ]
