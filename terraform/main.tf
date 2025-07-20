@@ -167,7 +167,7 @@ resource "aws_cloudwatch_event_rule" "bellybrew_scheduler" {
   name                = "bellybrew-casks-test-scheduler"
   description         = "Runs bellybrew-athena-function Lambda every day at 22:00"
   schedule_expression = "cron(0 22 * * ? *)" # 10 PM daily
-  is_enabled          = true
+  state = "ENABLED"
 }
 
 resource "aws_cloudwatch_event_target" "lambda_target" {
